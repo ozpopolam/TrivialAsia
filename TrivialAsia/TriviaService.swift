@@ -45,7 +45,6 @@ final class TriviaService {
     func processGetTokenSuccessValue(_ value: TriviaTokenResponse) -> TriviaToken {
         token = value.token
         triviaRepositoryService.setTriviaToken(value.token)
-        print(token.value)
         return token
     }
     

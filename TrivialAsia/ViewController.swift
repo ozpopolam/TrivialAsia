@@ -15,7 +15,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         TriviaService().getTriviaList(withAmount: 15) { completionHandler in
-            print("asd")
+            
+            if let value = completionHandler.value {
+                print(value)
+            } else {
+                print(completionHandler.error)
+            }
             
         }
     }
