@@ -8,13 +8,6 @@
 
 import Alamofire
 
-protocol Routing: URLRequestConvertible {
-    var path: String { get }
-    var method: HTTPMethod { get }
-    var parameters: Parameters { get }
-    var url: URL { get }
-}
-
 enum TriviaAPIRouter: Routing {
     static let httpsServerURL = URL(string: "https://opentdb.com/")!
     

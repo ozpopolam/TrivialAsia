@@ -1,5 +1,5 @@
 //
-//  TriviaAPIService.swift
+//  TriviaMappable.swift
 //  TrivialAsia
 //
 //  Created by Anastasia Stepanova-Kolupakhina on 25.05.17.
@@ -7,4 +7,8 @@
 //
 
 import Foundation
+import ObjectMapper
 
+protocol TriviaMappable: Mappable {
+    var responseCode: Int { get set }
+}
