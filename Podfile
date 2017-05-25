@@ -9,5 +9,6 @@ target 'TrivialAsia' do
 
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
+  pod 'RealmSwift'
 
 end
