@@ -12,6 +12,7 @@
 		623E74F61ED634E900292D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623E74F41ED634E900292D18 /* Main.storyboard */; };
 		623E74F81ED634E900292D18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 623E74F71ED634E900292D18 /* Assets.xcassets */; };
 		623E74FB1ED634E900292D18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623E74F91ED634E900292D18 /* LaunchScreen.storyboard */; };
+		BBAD417404F6BE8740CD778F /* Pods_TrivialAsia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8431176442B9C1AEA8D619 /* Pods_TrivialAsia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		623E74F71ED634E900292D18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		623E74FA1ED634E900292D18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		623E74FC1ED634E900292D18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70659DCC2A182AEBB2250093 /* Pods-TrivialAsia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrivialAsia.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrivialAsia/Pods-TrivialAsia.release.xcconfig"; sourceTree = "<group>"; };
+		AC8431176442B9C1AEA8D619 /* Pods_TrivialAsia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrivialAsia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE3B8F83F8A549A34C488BE0 /* Pods-TrivialAsia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrivialAsia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrivialAsia/Pods-TrivialAsia.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBAD417404F6BE8740CD778F /* Pods_TrivialAsia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19859D98B9B690F1B13F82FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC8431176442B9C1AEA8D619 /* Pods_TrivialAsia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		623E74E41ED634E900292D18 = {
 			isa = PBXGroup;
 			children = (
 				623E74EF1ED634E900292D18 /* TrivialAsia */,
 				623E74EE1ED634E900292D18 /* Products */,
+				E2F213CC0B9F5D100BF7E978 /* Pods */,
+				19859D98B9B690F1B13F82FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = TrivialAsia;
 			sourceTree = "<group>";
 		};
+		E2F213CC0B9F5D100BF7E978 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DE3B8F83F8A549A34C488BE0 /* Pods-TrivialAsia.debug.xcconfig */,
+				70659DCC2A182AEBB2250093 /* Pods-TrivialAsia.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 623E74FF1ED634E900292D18 /* Build configuration list for PBXNativeTarget "TrivialAsia" */;
 			buildPhases = (
+				BA5110968699289A4A06D6F8 /* [CP] Check Pods Manifest.lock */,
 				623E74E91ED634E900292D18 /* Sources */,
 				623E74EA1ED634E900292D18 /* Frameworks */,
 				623E74EB1ED634E900292D18 /* Resources */,
+				CA369E5464E9F8ABC3AE3690 /* [CP] Embed Pods Frameworks */,
+				72879A30EA9AD8831BA7F89B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		72879A30EA9AD8831BA7F89B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TrivialAsia/Pods-TrivialAsia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA5110968699289A4A06D6F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CA369E5464E9F8ABC3AE3690 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TrivialAsia/Pods-TrivialAsia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		623E74E91ED634E900292D18 /* Sources */ = {
@@ -259,6 +334,7 @@
 		};
 		623E75001ED634E900292D18 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE3B8F83F8A549A34C488BE0 /* Pods-TrivialAsia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K56NDXLX63;
@@ -272,6 +348,7 @@
 		};
 		623E75011ED634E900292D18 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70659DCC2A182AEBB2250093 /* Pods-TrivialAsia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = K56NDXLX63;
