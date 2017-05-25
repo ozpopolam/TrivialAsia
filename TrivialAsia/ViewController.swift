@@ -7,19 +7,28 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let urlRequest = TriviaAPIRouter.getTrivia(withAmount: 10, andToken: nil)
+        
+        print(urlRequest.url.absoluteString)
+        
+        Alamofire.request(urlRequest)
+            .responseTrivia { (response: DataResponse<TriviaListResponse>) in
+                
+                if let value = response.result.value {
+                    print("asd")
+                }
+                
+                
+                
+                
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
-

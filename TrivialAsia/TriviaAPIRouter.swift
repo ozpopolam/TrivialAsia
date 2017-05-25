@@ -1,0 +1,66 @@
+//
+//  TriviaAPIRouter.swift
+//  TrivialAsia
+//
+//  Created by Anastasia Stepanova-Kolupakhina on 25.05.17.
+//  Copyright © 2017 Anastasia Kolupakhina. All rights reserved.
+//
+
+import Alamofire
+
+protocol Routing: URLRequestConvertible {
+    var path: String { get }
+    var method: HTTPMethod { get }
+    var parameters: Parameters { get }
+    var url: URL { get }
+}
+
+enum TriviaAPIRouter: Routing {
+    static let httpsServerURL = URL(string: "https://opentdb.com/")!
+    
+    case getToken
+    case getTrivia(withAmount: Int, andToken: String?)
+    
+    var path: String {
+        switch self {
+        case .getToken:
+            return "api_token.php"
+        case .getTrivia:
+            return "api.php"
+        }
+    }
+    
+    var url: URL {
+        return TriviaAPIRouter.httpsServerURL.appendingPathComponent(path)
+    }
+    
+    var method: HTTPMethod {
+        switch self {
+        case .getToken,
+             .getTrivia:
+            return .get
+        }
+    }
+    
+    var parameters: Parameters {
+        switch self {
+            
+        case .getToken:
+            return [
+                "command": "request"
+            ]
+            
+        case .getTrivia(let amount, let token):
+            return [
+                "amount": amount
+            ]
+        }
+    }
+    
+    func asURLRequest() throws -> URLRequest {
+        var urlRequest = try URLRequest(url: url, method: method)
+        urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+        return urlRequest
+    }
+    
+}
