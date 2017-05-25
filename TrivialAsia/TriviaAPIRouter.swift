@@ -12,7 +12,7 @@ enum TriviaAPIRouter: Routing {
     static let httpsServerURL = URL(string: "https://opentdb.com/")!
     
     case getToken
-    case getTriviaList(withAmount: Int, andToken: String?)
+    case getTriviaList(withAmount: Int, andToken: String)
     
     var path: String {
         switch self {
@@ -45,7 +45,8 @@ enum TriviaAPIRouter: Routing {
             
         case .getTriviaList(let amount, let token):
             return [
-                "amount": amount
+                "amount": amount,
+                "token": token
             ]
         }
     }

@@ -13,17 +13,20 @@ import RealmSwift
 class Trivia: Object, Mappable {
     private let answersSeparator = "~"
     
-    var id = 0
-    var category = ""
-    var type = ""
-    var difficulty = ""
-    var question = ""
-    var correctAnswer = ""
-    var incorrectAnswersJoined = ""
+    dynamic var id = 0
+    dynamic var category = ""
+    dynamic var type = ""
+    dynamic var difficulty = ""
+    dynamic var question = ""
+    dynamic var correctAnswer = ""
+    dynamic var incorrectAnswersJoined = ""
     
     var incorrectAnswers: [String] {
         return incorrectAnswersJoined.components(separatedBy: answersSeparator)
     }
+    
+    dynamic var uploadDate = Date()
+    dynamic var isAnswered = false
     
     required convenience init?(map: Map) {
         self.init()
@@ -45,5 +48,6 @@ class Trivia: Object, Mappable {
         incorrectAnswersJoined = incorrectAnswersMapped.map({$0}).joined(separator: answersSeparator)
         
         id = (category + question + correctAnswer).hashValue
+        uploadDate = Date()
     }
 }
