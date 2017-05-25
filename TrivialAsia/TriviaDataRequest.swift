@@ -69,3 +69,31 @@ extension DataRequest {
         return response(queue: queue, responseSerializer: DataRequest.responseTriviaSerializer(), completionHandler: completionHandler)
     }
 }
+
+//extension DataResponse where Value: TriviaMappable {
+//    
+//    func processResponseJelly(withBlock block: @escaping () -> Void, andCompletionHandler completionHandler: @escaping (TriviaCompletion<Value>) -> Void) {
+//        switch self.result {
+//            
+//        case .failure(let error):
+//            let triviaError = error as! TriviaError
+//            
+//            switch triviaError {
+//            case .networkTimeout:
+//                block()
+//                
+//            case .unauthorized:
+//                LoginHelper.getInstance()?.reSignIn {
+//                    block()
+//                }
+//                
+//            default:
+//                completionHandler(.failure(jellyError))
+//            }
+//            
+//            
+//        case .success(let value):
+//            completionHandler(.success(value))
+//        }
+//    }
+//}

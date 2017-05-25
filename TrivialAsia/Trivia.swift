@@ -10,6 +10,7 @@ import Foundation
 import ObjectMapper
 
 class Trivia: Mappable {
+    var id = 0
     var category = ""
     var type = ""
     var difficulty = ""
@@ -25,6 +26,8 @@ class Trivia: Mappable {
         difficulty <- map["difficulty"]
         question <- map["question"]
         correctAnswer <- map["correct_answer"]
-        //category <- map["incorrect_answers"]
+        incorrectAnswers <- map["incorrect_answers"]
+        
+        id = (category + question + correctAnswer).hashValue
     }
 }

@@ -12,13 +12,13 @@ enum TriviaAPIRouter: Routing {
     static let httpsServerURL = URL(string: "https://opentdb.com/")!
     
     case getToken
-    case getTrivia(withAmount: Int, andToken: String?)
+    case getTriviaList(withAmount: Int, andToken: String?)
     
     var path: String {
         switch self {
         case .getToken:
             return "api_token.php"
-        case .getTrivia:
+        case .getTriviaList:
             return "api.php"
         }
     }
@@ -30,7 +30,7 @@ enum TriviaAPIRouter: Routing {
     var method: HTTPMethod {
         switch self {
         case .getToken,
-             .getTrivia:
+             .getTriviaList:
             return .get
         }
     }
@@ -43,7 +43,7 @@ enum TriviaAPIRouter: Routing {
                 "command": "request"
             ]
             
-        case .getTrivia(let amount, let token):
+        case .getTriviaList(let amount, let token):
             return [
                 "amount": amount
             ]
@@ -55,5 +55,4 @@ enum TriviaAPIRouter: Routing {
         urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         return urlRequest
     }
-    
 }
