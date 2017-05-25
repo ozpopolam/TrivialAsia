@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import RealmSwift
 
-class TriviaToken {
-    var generationDate = Date()
-    var value = ""
+class TriviaToken: Object {
+    dynamic var id = 0
+    dynamic var generationDate = Date()
+    dynamic var value = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
     
     var isValid: Bool {
         return !value.isEmpty

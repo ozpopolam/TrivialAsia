@@ -18,7 +18,8 @@ final class TriviaService {
     
     init() {
         // load token from DB
-        token = TriviaToken()
+        token = triviaRepositoryService.getTriviaToken() ?? TriviaToken()
+        print(token.value)
     }
     
     func getToken(completionHandler: @escaping (TriviaToken?) -> Void) {
@@ -43,6 +44,8 @@ final class TriviaService {
     
     func processGetTokenSuccessValue(_ value: TriviaTokenResponse) -> TriviaToken {
         token = value.token
+        triviaRepositoryService.setTriviaToken(value.token)
+        print(token.value)
         return token
     }
     
