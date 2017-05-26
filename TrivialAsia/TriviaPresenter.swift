@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol TriviaPresenterDelegate: class {
-    func setTrivia()
-}
-
 class TriviaPresenter {
     weak private var view: TriviaView?
     
@@ -31,26 +27,39 @@ class TriviaPresenter {
         self.view = view
     }
     
-//    func detachView() {
-//        self.baseEditGroupView = nil
-//    }
+    func detachView() {
+        self.view = nil
+    }
     
     func getTriviaList() {
         guard !triviaIsBeingLoded else { return }
+        triviaIsBeingLoded = true
+        
+        view?.showNotification(TriviaViewNotification.isBeingLoaded.rawValue)
         
         getTriviaList(withAmount: amountOfTriviaToUpload) { triviaCompletion in
+            self.triviaIsBeingLoded = false
+            
+            self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
+            return
             
             switch triviaCompletion {
-            case .failure(let error):
-                // show error
-                break
+            case .failure(let triviaError):
+                
+                switch triviaError {
+                case .networkTimeout, .noInternetConnection, .network:
+                    self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
+                    
+                case .responseCode:
+                    self.view?.showNotification(TriviaViewNotification.sorryNoTrivia.rawValue)
+                    
+                default:
+                    break
+                }
                 
             case .success(let triviaList):
                 let triviaAdaptedList = triviaList.map { TriviaAdapted(fromTrivia: $0) }
                 self.view?.addTriviaAdaptedList(triviaAdaptedList)
-                
-                // show new trivia
-                break
             }
         }
     }
@@ -108,14 +117,11 @@ class TriviaPresenter {
     private func processGetTriviaListSuccessValue(_ value: TriviaListResponse) -> [Trivia] {
         var newTrivia = [Trivia]()
         
-        // new trivia shouldn't be in already exesting list and
-        // new trivia shouldn't be in answered ones
-        
         let answeredTrivia = triviaRepositoryService.getAnsweredTrivia()
         
         for trivia in value.list {
-            if !triviaList.contains(where: { $0.id == trivia.id }) &&
-                !answeredTrivia.contains(where: { $0.id == trivia.id }) {
+            if !triviaList.contains(where: { $0.id == trivia.id }) && // new trivia shouldn't be in already exesting list
+                !answeredTrivia.contains(where: { $0.id == trivia.id }) { // and in answered ones
                 newTrivia.append(trivia)
             }
         }
