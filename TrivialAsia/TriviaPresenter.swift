@@ -9,7 +9,7 @@
 import Foundation
 
 class TriviaPresenter {
-    weak private var view: TriviaView?
+    weak private var view: TriviaViewProtocol?
     
     private let triviaRepositoryService = TriviaRepositoryService()
     private let triviaAPIService = TriviaAPIService()
@@ -23,7 +23,7 @@ class TriviaPresenter {
         token = triviaRepositoryService.getTriviaToken()
     }
     
-    func attachView(view: TriviaView) {
+    func attachView(view: TriviaViewProtocol) {
         self.view = view
     }
     
@@ -40,9 +40,8 @@ class TriviaPresenter {
         getTriviaList(withAmount: amountOfTriviaToUpload) { triviaCompletion in
             self.triviaIsBeingLoded = false
             
-            self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
-            return
-            
+            //self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
+
             switch triviaCompletion {
             case .failure(let triviaError):
                 
@@ -58,7 +57,7 @@ class TriviaPresenter {
                 }
                 
             case .success(let triviaList):
-                let triviaAdaptedList = triviaList.map { TriviaAdapted(fromTrivia: $0) }
+                let triviaAdaptedList = triviaList.map { TriviaViewAdapted(fromTrivia: $0) }
                 self.view?.addTriviaAdaptedList(triviaAdaptedList)
             }
         }

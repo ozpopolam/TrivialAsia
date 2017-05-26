@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TriviaAdapted {
+class TriviaViewAdapted {
     var id = 0
     var difficulty = ""
     var question = ""

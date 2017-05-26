@@ -9,20 +9,15 @@
 import UIKit
 import Alamofire
 
-protocol TriviaView: class {
-    func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaAdapted])
-    func showNotification(_ notification: String)
-}
+
 
 final class TriviaViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     fileprivate let presenter = TriviaPresenter()
-    
-    fileprivate var triviaAdaptedList = [TriviaAdapted]()
-    fileprivate var notification = ""
-    
+    fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded.rawValue)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,60 +40,64 @@ final class TriviaViewController: UIViewController {
 
 }
 
-extension TriviaViewController: TriviaView {
-    func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaAdapted]) {
-        notification = ""
-        self.triviaAdaptedList.append(contentsOf: triviaAdaptedList)
+extension TriviaViewController: TriviaViewProtocol {
+    func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted]) {
+        if case .triviaAdaptedList(var list) = viewState {
+            list.append(contentsOf: triviaAdaptedList)
+            viewState = .triviaAdaptedList(list)
+
+        } else {
+            viewState = .triviaAdaptedList(triviaAdaptedList)
+        }
+
         tableView.reloadData()
     }
     
-    func showNotification(_ notification: String) {
-        guard triviaAdaptedList.isEmpty else {
-            return
-        }
-        self.notification = notification
+    func showNotification(_ notificationText: String) {
+        guard case .notification(_) = viewState else { return }
+        viewState = .notification(notificationText)
         tableView.reloadData()
     }
 }
 
-
 extension TriviaViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if notification.isEmpty {
-            return triviaAdaptedList.count
-        } else {
+        switch viewState {
+        case .notification:
             return 1
+
+        case .triviaAdaptedList(let list):
+            return list.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if notification.isEmpty {
-            return triviaCell(forRowAt: indexPath)
-            
-        } else {
-            return notificationCell(forRowAt: indexPath)
+        switch viewState {
+        case .notification(let text):
+            return notificationCell(fromText: text, forRowAt: indexPath)
+
+        case .triviaAdaptedList(let list):
+            return triviaCell(fromTrivia: list[indexPath.row], forRowAt: indexPath)
         }
     }
     
-    func triviaCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+    func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let trivia = triviaAdaptedList[indexPath.row]
         cell.textLabel?.text = trivia.question
         return cell
     }
     
-    func notificationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+    func notificationCell(fromText text: String, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = notification
+        cell.textLabel?.text = text
         return cell
     }
 }
 
 extension TriviaViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == triviaAdaptedList.count - 1 {
+        guard case .triviaAdaptedList(let list) = viewState else { return }
+        if indexPath.row == list.count - 1 {
             presenter.getTriviaList()
         }
     }
