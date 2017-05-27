@@ -21,6 +21,9 @@ final class TriviaViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
+
+        tableView.separatorStyle = .none
+//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
         tableView.estimatedRowHeight = 100
     }
     
@@ -81,7 +84,7 @@ extension TriviaViewController: UITableViewDataSource {
     
     func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
-        cell.configure(with: trivia, andFoldedState: true)
+        cell.configure(with: trivia, isFolded: true, isEven: indexPath.row % 2 == 0)
         return cell
     }
 
