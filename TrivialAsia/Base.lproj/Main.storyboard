@@ -36,7 +36,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVS-fN-uAS">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMU-tw-7WU">
                                                                     <rect key="frame" x="8" y="8" width="50" height="14.5"/>
@@ -48,7 +48,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ge-Zj-a60">
-                                                                    <rect key="frame" x="62" y="8" width="305" height="134"/>
+                                                                    <rect key="frame" x="62" y="8" width="305" height="113.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -64,22 +64,19 @@
                                                                 <constraint firstItem="8Ge-Zj-a60" firstAttribute="top" secondItem="BMU-tw-7WU" secondAttribute="top" id="o5R-8g-N0a"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBW-6Z-NpX">
-                                                            <rect key="frame" x="0.0" y="150" width="375" height="50"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lC6-KY-rSZ">
+                                                            <rect key="frame" x="0.0" y="129.5" width="375" height="70.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uR-9h-K1r">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N2C-8V-pqF">
+                                                                    <rect key="frame" x="8" y="2" width="359" height="67.5"/>
+                                                                </stackView>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstItem="2uR-9h-K1r" firstAttribute="leading" secondItem="gBW-6Z-NpX" secondAttribute="leading" id="ISr-ER-Bdl"/>
-                                                                <constraint firstAttribute="trailing" secondItem="2uR-9h-K1r" secondAttribute="trailing" id="NVy-GS-JW8"/>
-                                                                <constraint firstAttribute="bottom" secondItem="2uR-9h-K1r" secondAttribute="bottom" id="dX2-nu-SUO"/>
-                                                                <constraint firstItem="2uR-9h-K1r" firstAttribute="top" secondItem="gBW-6Z-NpX" secondAttribute="top" id="pqU-Ru-rqx"/>
+                                                                <constraint firstAttribute="bottom" secondItem="N2C-8V-pqF" secondAttribute="bottom" priority="750" constant="1" id="0bI-63-Wuc"/>
+                                                                <constraint firstItem="N2C-8V-pqF" firstAttribute="leading" secondItem="lC6-KY-rSZ" secondAttribute="leading" constant="8" id="OCF-WY-rLh"/>
+                                                                <constraint firstItem="N2C-8V-pqF" firstAttribute="top" secondItem="lC6-KY-rSZ" secondAttribute="top" priority="750" constant="2" id="rr3-fM-psg"/>
+                                                                <constraint firstAttribute="trailing" secondItem="N2C-8V-pqF" secondAttribute="trailing" constant="8" id="s2b-h0-wMF"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -94,7 +91,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="answersView" destination="gBW-6Z-NpX" id="WKg-we-3pU"/>
+                                            <outlet property="answersStackView" destination="N2C-8V-pqF" id="QtK-lI-0zR"/>
+                                            <outlet property="answersView" destination="lC6-KY-rSZ" id="fI5-9d-0Kq"/>
                                             <outlet property="difficultyLabel" destination="BMU-tw-7WU" id="Ydm-Di-yiF"/>
                                             <outlet property="questionLabel" destination="8Ge-Zj-a60" id="p4t-X0-6xl"/>
                                         </connections>

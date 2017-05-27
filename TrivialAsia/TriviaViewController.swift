@@ -81,23 +81,12 @@ extension TriviaViewController: UITableViewDataSource {
     
     func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
-
-
-        cell.answersView.isHidden = true
-
-        cell.difficultyLabel.text = trivia.difficulty
-        cell.questionLabel.text = trivia.question
-
-
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        cell.textLabel?.text = trivia.question
+        cell.configure(with: trivia, andFoldedState: true)
         return cell
     }
 
     func notificationCell(fromText text: String, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
-
-        cell.questionLabel.text = text
         return cell
     }
 }
@@ -115,7 +104,7 @@ extension TriviaViewController: UITableViewDelegate {
             tableView.beginUpdates()
 
             UIView.animate(withDuration: 0.3) {
-                cell.answersView.isHidden = !cell.answersView.isHidden
+                cell.isFolded = !cell.isFolded
             }
 
             tableView.endUpdates()
