@@ -119,10 +119,11 @@ class TriviaPresenter {
     }
     
     private func processGetTriviaListSuccessValue(_ value: TriviaListResponse) -> [Trivia] {
-        var newTrivia = [Trivia]()
         
         let answeredTrivia = triviaRepositoryService.getAnsweredTrivia()
-        
+        guard !(answeredTrivia.isEmpty && triviaList.isEmpty) else { return [] }
+
+        var newTrivia = [Trivia]()
         for trivia in value.list {
             if !triviaList.contains(where: { $0 == trivia }) && // new trivia shouldn't be in already exesting list
                 !answeredTrivia.contains(where: { $0 == trivia }) { // and in answered ones
@@ -130,9 +131,7 @@ class TriviaPresenter {
             }
         }
         
-        guard newTrivia.count > 0 else {
-            return []
-        }
+        guard newTrivia.count > 0 else { return [] }
         
         triviaList.append(contentsOf: newTrivia)
         return newTrivia
