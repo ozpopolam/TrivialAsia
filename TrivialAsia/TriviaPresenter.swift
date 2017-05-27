@@ -121,7 +121,11 @@ class TriviaPresenter {
     private func processGetTriviaListSuccessValue(_ value: TriviaListResponse) -> [Trivia] {
         
         let answeredTrivia = triviaRepositoryService.getAnsweredTrivia()
-        guard !(answeredTrivia.isEmpty && triviaList.isEmpty) else { return [] }
+
+        guard !(answeredTrivia.isEmpty && triviaList.isEmpty) else {
+            triviaList.append(contentsOf: value.list)
+            return value.list
+        }
 
         var newTrivia = [Trivia]()
         for trivia in value.list {

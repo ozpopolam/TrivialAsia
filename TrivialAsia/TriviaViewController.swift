@@ -17,10 +17,11 @@ final class TriviaViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,14 +80,24 @@ extension TriviaViewController: UITableViewDataSource {
     }
     
     func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = trivia.question
+        let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
+
+
+        cell.answersView.isHidden = true
+
+        cell.difficultyLabel.text = trivia.difficulty
+        cell.questionLabel.text = trivia.question
+
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = trivia.question
         return cell
     }
-    
+
     func notificationCell(fromText text: String, forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = text
+        let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
+
+        cell.questionLabel.text = text
         return cell
     }
 }
@@ -96,6 +107,19 @@ extension TriviaViewController: UITableViewDelegate {
         guard case .triviaAdaptedList(let list) = viewState else { return }
         if indexPath.row == list.count - 1 {
             presenter.getTriviaList()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
+            tableView.beginUpdates()
+
+            UIView.animate(withDuration: 0.3) {
+                cell.answersView.isHidden = !cell.answersView.isHidden
+            }
+
+            tableView.endUpdates()
+            return
         }
     }
 }
