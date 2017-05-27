@@ -104,7 +104,14 @@ class TriviaPresenter {
                     completionHandler(.success(processedValue))
                     
                 case .failure(let triviaError):
-                    completionHandler(.failure(triviaError))
+                    if case .responseCode(let error) = triviaError, error == .tokenNotFound {
+                        self.token = nil
+                        self.getTriviaList(withAmount: amount, completionHandler: completionHandler)
+
+                    } else {
+                        completionHandler(.failure(triviaError))
+                    }
+
                 }
                 
             }
