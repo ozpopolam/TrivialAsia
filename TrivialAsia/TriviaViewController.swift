@@ -9,14 +9,11 @@
 import UIKit
 import Alamofire
 
-
-
 final class TriviaViewController: UIViewController {
-    
     @IBOutlet weak var tableView: UITableView!
     
     fileprivate let presenter = TriviaPresenter()
-    fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded.rawValue)
+    fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +37,7 @@ final class TriviaViewController: UIViewController {
 
 }
 
-extension TriviaViewController: TriviaViewProtocol {
+extension TriviaViewController: TriviaView {
     func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted]) {
         if case .triviaAdaptedList(var list) = viewState {
             list.append(contentsOf: triviaAdaptedList)

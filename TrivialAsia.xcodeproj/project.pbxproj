@@ -143,7 +143,6 @@
 		6220F0EA1ED70DDD00F0F75E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				622460E81ED8CE1C002BF65B /* TriviaView.swift */,
 				6220F0F41ED7691800F0F75E /* TriviaViewNotification.swift */,
 				622460EA1ED8CE3F002BF65B /* TriviaViewState.swift */,
 				623E74F21ED634E900292D18 /* TriviaViewController.swift */,
@@ -155,6 +154,7 @@
 		6220F0EB1ED70E3C00F0F75E /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				622460E81ED8CE1C002BF65B /* TriviaView.swift */,
 				6220F0F01ED72A2C00F0F75E /* TriviaPresenter.swift */,
 			);
 			name = Presenter;

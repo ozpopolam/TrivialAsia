@@ -51,3 +51,8 @@ class Trivia: Object, Mappable {
         uploadDate = Date()
     }
 }
+
+// conformance to protocol 'Equatable'
+func ==(lhs: Trivia, rhs: Trivia) -> Bool {
+    return lhs.id == rhs.id
+}

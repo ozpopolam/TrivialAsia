@@ -9,7 +9,7 @@
 import Foundation
 
 class TriviaPresenter {
-    weak private var view: TriviaViewProtocol?
+    weak private var view: TriviaView?
     
     private let triviaRepositoryService = TriviaRepositoryService()
     private let triviaAPIService = TriviaAPIService()
@@ -23,7 +23,7 @@ class TriviaPresenter {
         token = triviaRepositoryService.getTriviaToken()
     }
     
-    func attachView(view: TriviaViewProtocol) {
+    func attachView(view: TriviaView) {
         self.view = view
     }
     
@@ -35,22 +35,20 @@ class TriviaPresenter {
         guard !triviaIsBeingLoded else { return }
         triviaIsBeingLoded = true
         
-        view?.showNotification(TriviaViewNotification.isBeingLoaded.rawValue)
+        view?.showNotification(TriviaViewNotification.isBeingLoaded)
         
         getTriviaList(withAmount: amountOfTriviaToUpload) { triviaCompletion in
             self.triviaIsBeingLoded = false
-            
-            //self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
 
             switch triviaCompletion {
             case .failure(let triviaError):
                 
                 switch triviaError {
                 case .networkTimeout, .noInternetConnection, .network:
-                    self.view?.showNotification(TriviaViewNotification.checkInternetConnection.rawValue)
+                    self.view?.showNotification(TriviaViewNotification.checkInternetConnection)
                     
                 case .responseCode:
-                    self.view?.showNotification(TriviaViewNotification.sorryNoTrivia.rawValue)
+                    self.view?.showNotification(TriviaViewNotification.sorryNoTrivia)
                     
                 default:
                     break
@@ -119,8 +117,8 @@ class TriviaPresenter {
         let answeredTrivia = triviaRepositoryService.getAnsweredTrivia()
         
         for trivia in value.list {
-            if !triviaList.contains(where: { $0.id == trivia.id }) && // new trivia shouldn't be in already exesting list
-                !answeredTrivia.contains(where: { $0.id == trivia.id }) { // and in answered ones
+            if !triviaList.contains(where: { $0 == trivia }) && // new trivia shouldn't be in already exesting list
+                !answeredTrivia.contains(where: { $0 == trivia }) { // and in answered ones
                 newTrivia.append(trivia)
             }
         }

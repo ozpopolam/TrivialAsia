@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TriviaViewProtocol: class {
+protocol TriviaView: class {
     func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted])
     func showNotification(_ notificationText: String)
 }

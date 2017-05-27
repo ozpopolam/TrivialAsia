@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum TriviaViewNotification: String {
-    case isBeingLoaded = "Trivia is being loaded..."
-    case sorryNoTrivia = "Sorry! No trivia today"
-    case checkInternetConnection = "No Internet! Please, check your connection"
+enum TriviaViewNotification {
+    static let isBeingLoaded = "Trivia is being loaded..."
+    static let sorryNoTrivia = "Sorry! No trivia today"
+    static let checkInternetConnection = "No Internet! Please, check your connection"
 }
