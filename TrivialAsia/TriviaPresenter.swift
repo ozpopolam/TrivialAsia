@@ -70,6 +70,10 @@ class TriviaPresenter {
 
     func finishWIthTrivia(withId triviaId: Int) {
         guard let index = triviaList.index(where: { $0.id == triviaId }) else { return }
+
+        let trivia = triviaList[index]
+        triviaRepositoryService.setAnswered(trivia)
+
         triviaList.remove(at: index)
     }
     
@@ -133,12 +137,7 @@ class TriviaPresenter {
     private func processGetTriviaListSuccessValue(_ value: TriviaListResponse) -> [Trivia] {
         
         let answeredTrivia = triviaRepositoryService.getAnsweredTrivia()
-
-        guard !(answeredTrivia.isEmpty && triviaList.isEmpty) else {
-            triviaList.append(contentsOf: value.list)
-            return value.list
-        }
-
+        
         var newTrivia = [Trivia]()
         for trivia in value.list {
             if !triviaList.contains(where: { $0 == trivia }) && // new trivia shouldn't be in already exesting list

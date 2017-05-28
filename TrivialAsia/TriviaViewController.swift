@@ -110,7 +110,7 @@ extension TriviaViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case .triviaAdaptedList(let list) = viewState else { return }
-        
+
         if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
             tableView.beginUpdates()
 
