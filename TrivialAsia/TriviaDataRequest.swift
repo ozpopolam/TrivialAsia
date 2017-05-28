@@ -29,7 +29,7 @@ extension DataRequest {
                 }
             }
             
-            // serialize JSON to Jelly-object
+            // serialize JSON to Trivia-object
             let result = Request.serializeResponseJSON(options: .allowFragments, response: response, data: data, error: nil)
             
             guard case let .success(jsonData) = result else {

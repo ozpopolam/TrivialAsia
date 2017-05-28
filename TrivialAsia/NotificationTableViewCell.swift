@@ -18,12 +18,6 @@ final class NotificationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-
-//        difficultyLabel.layer.cornerRadius = TriviaTableViewCell.cornerRadius
-//        difficultyLabel.layer.masksToBounds = true
-//        difficultyLabel.backgroundColor = TriviaColor.pink
-//
-//        difficultyLabel.textColor = .white
     }
 
     func configure(withNotificationText notificationText: String) {

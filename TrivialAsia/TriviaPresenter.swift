@@ -141,7 +141,7 @@ class TriviaPresenter {
         var newTrivia = [Trivia]()
         for trivia in value.list {
             if !triviaList.contains(where: { $0 == trivia }) && // new trivia shouldn't be in already exesting list
-                !answeredTrivia.contains(where: { $0 == trivia }) { // and in answered ones
+                !answeredTrivia.contains(where: { $0 == trivia }) { // neither in answered ones
                 newTrivia.append(trivia)
             }
         }

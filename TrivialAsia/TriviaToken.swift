@@ -19,6 +19,10 @@ class TriviaToken: Object {
     }
     
     var isValid: Bool {
-        return !value.isEmpty
+        guard let deadlineTokenDate = Calendar.current.date(byAdding: .hour, value: 6, to: generationDate) else { // lifespan of session token
+            return false
+        }
+
+        return deadlineTokenDate > Date()
     }
 }
