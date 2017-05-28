@@ -117,7 +117,14 @@ class TriviaPresenter {
                 switch triviaCompletion {
                 case .success(let value):
                     let processedValue = self.processGetTriviaListSuccessValue(value)
-                    completionHandler(.success(processedValue))
+
+                    if processedValue.isEmpty {
+                        let responseCodeError = TriviaError.responseCode(error: ResponseCode.noResults)
+                        completionHandler(.failure(responseCodeError))
+                        
+                    } else {
+                        completionHandler(.success(processedValue))
+                    }
                     
                 case .failure(let triviaError):
                     if case .responseCode(let error) = triviaError, error == .tokenNotFound {
