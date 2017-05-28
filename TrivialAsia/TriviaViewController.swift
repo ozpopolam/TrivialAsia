@@ -44,26 +44,6 @@ final class TriviaViewController: UIViewController {
 
 }
 
-extension TriviaViewController: TriviaView {
-    func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted]) {
-        if case .triviaAdaptedList(var list) = viewState {
-            list.append(contentsOf: triviaAdaptedList)
-            viewState = .triviaAdaptedList(list)
-
-        } else {
-            viewState = .triviaAdaptedList(triviaAdaptedList)
-        }
-
-        tableView.reloadData()
-    }
-    
-    func showNotification(_ notificationText: String) {
-        guard case .notification(_) = viewState else { return }
-        viewState = .notification(notificationText)
-        tableView.reloadData()
-    }
-}
-
 extension TriviaViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewState {
@@ -154,6 +134,31 @@ extension TriviaViewController: TriviaTableViewCellDelegate {
             
             self.tableView.reloadData()
             self.view.isUserInteractionEnabled = true
+        }
+    }
+}
+
+extension TriviaViewController: TriviaView {
+    func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted]) {
+        if case .triviaAdaptedList(var list) = viewState {
+            list.append(contentsOf: triviaAdaptedList)
+            viewState = .triviaAdaptedList(list)
+
+        } else {
+            viewState = .triviaAdaptedList(triviaAdaptedList)
+        }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
+    func showNotification(_ notificationText: String) {
+        guard case .notification(_) = viewState else { return }
+        viewState = .notification(notificationText)
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }
