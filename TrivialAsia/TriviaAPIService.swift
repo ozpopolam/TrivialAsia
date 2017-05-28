@@ -13,9 +13,10 @@ class TriviaAPIService {
     
     func getToken(completionHandler: @escaping (TriviaCompletion<TriviaTokenResponse>) -> Void) {
         
-        let urlRequest = TriviaAPIRouter.getToken
+        let routingRequest = TriviaAPIRouter.getToken
+        AlamofireHelper.printOutcomingUrlRequest(routingRequest.urlRequest)
 
-        Alamofire.request(urlRequest)
+        Alamofire.request(routingRequest)
             .responseTrivia { (response: DataResponse<TriviaTokenResponse>) in
                 response.processResponseTrivia(withBlock: {
                     self.getToken(completionHandler: completionHandler)
@@ -27,9 +28,10 @@ class TriviaAPIService {
                        andToken token: String,
                        completionHandler: @escaping (TriviaCompletion<TriviaListResponse>) -> Void) {
 
-        let urlRequest = TriviaAPIRouter.getTriviaList(withAmount: amount, andToken: token)
+        let routingRequest = TriviaAPIRouter.getTriviaList(withAmount: amount, andToken: token)
+        AlamofireHelper.printOutcomingUrlRequest(routingRequest.urlRequest)
 
-        Alamofire.request(urlRequest)
+        Alamofire.request(routingRequest)
             .responseTrivia { (response: DataResponse<TriviaListResponse>) in
                 response.processResponseTrivia(withBlock: {
                     self.getTriviaList(withAmount: amount, andToken: token, completionHandler: completionHandler)

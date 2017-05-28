@@ -73,10 +73,12 @@ extension DataRequest {
 extension DataResponse where Value: TriviaMappable {
     
     func processResponseTrivia(withBlock block: @escaping () -> Void, andCompletionHandler completionHandler: @escaping (TriviaCompletion<Value>) -> Void) {
+
         switch self.result {
             
         case .failure(let error):
             let triviaError = error as! TriviaError
+            AlamofireHelper.printIncomingUrlRequest(self.request, withError: triviaError)
             
             switch triviaError {
             case .networkTimeout:
@@ -88,6 +90,7 @@ extension DataResponse where Value: TriviaMappable {
             
             
         case .success(let value):
+            AlamofireHelper.printIncomingUrlRequest(self.request)
             completionHandler(.success(value))
         }
     }

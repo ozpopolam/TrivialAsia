@@ -9,7 +9,6 @@
 import UIKit
 
 enum TriviaColor {
-
     static let whiteSmoke = UIColor(red: 236.0 / 255.0,
                                     green: 236.0 / 255.0,
                                     blue: 236.0 / 255.0,

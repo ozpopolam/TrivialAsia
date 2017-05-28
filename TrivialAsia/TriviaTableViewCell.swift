@@ -42,7 +42,7 @@ final class TriviaTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
+        selectionStyle = .none
 
         difficultyLabel.layer.cornerRadius = TriviaTableViewCell.cornerRadius
         difficultyLabel.layer.masksToBounds = true

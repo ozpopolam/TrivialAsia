@@ -95,7 +95,8 @@ extension TriviaViewController: UITableViewDataSource {
     }
 
     func notificationCell(fromText text: String, forRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: NotificationTableViewCell.identifier, for: indexPath) as! NotificationTableViewCell
+        cell.configure(withNotificationText: text)
         return cell
     }
 }
