@@ -21,15 +21,23 @@ enum TriviaColor {
                               blue: 85.0 / 255.0,
                               alpha: 1.0)
 
-    //    static let orange = UIColor(red: 255.0 / 255.0, green:  149.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
-
     static let tealBlue = UIColor(red: 90.0 / 255.0,
                                   green: 200.0 / 255.0,
                                   blue: 250.0 / 255.0,
                                   alpha: 1.0)
 
     static let blue = UIColor(red: 0.0 / 255.0,
-                              green:  122.0 / 255.0,
+                              green: 122.0 / 255.0,
                               blue: 255.0 / 255.0,
                               alpha: 1.0)
+
+    static let green = UIColor(red: 76.0 / 255.0,
+                              green: 217.0 / 255.0,
+                              blue: 100.0 / 255.0,
+                              alpha: 1.0)
+
+    static let red = UIColor(red: 255.0 / 255.0,
+                             green: 59.0 / 255.0,
+                             blue: 59.0 / 255.0,
+                             alpha: 1.0)
 }

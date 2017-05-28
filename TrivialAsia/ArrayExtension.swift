@@ -13,7 +13,6 @@ extension Array {
         guard count > 1 else { return }
 
         for _ in 0..<level {
-            print("asd")
             sort { (_, _) -> Bool in
                 return arc4random() < arc4random()
             }

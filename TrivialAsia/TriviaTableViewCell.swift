@@ -9,8 +9,8 @@
 import UIKit
 
 protocol TriviaTableViewCellDelegate: class {
-//    func cellDidTouchAnswer(withId answerId: Int, forTriviaId triviaId: Int)
     func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool
+    func cellDidFinishWIthTrivia(withId triviaId: Int)
 }
 
 class TriviaTableViewCell: UITableViewCell {
@@ -19,8 +19,6 @@ class TriviaTableViewCell: UITableViewCell {
     static let cornerRadius: CGFloat = 4.0
 
     weak var delegate: TriviaTableViewCellDelegate?
-
-    //private var triviaId = 0
 
     private var trivia: TriviaViewAdapted?
 
@@ -97,7 +95,15 @@ class TriviaTableViewCell: UITableViewCell {
         guard let trivia = trivia else { return }
         guard let answerIsCorrect = delegate?.isAnswer(trivia.answers[button.tag], correctForTriviaWithId: trivia.id) else { return }
 
-        print(answerIsCorrect)
+        answerButtons.forEach { $0.isUserInteractionEnabled = false }
+
+        if answerIsCorrect {
+            button.backgroundColor = TriviaColor.green
+        } else {
+            button.backgroundColor = TriviaColor.red
+        }
+
+        delegate?.cellDidFinishWIthTrivia(withId: trivia.id)
     }
 
 }

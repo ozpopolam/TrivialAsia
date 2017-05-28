@@ -14,6 +14,7 @@ final class TriviaViewController: UIViewController {
     
     fileprivate let presenter = TriviaPresenter()
     fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded)
+    fileprivate let timeBeforeFinishingWithTrivia: TimeInterval = 0.75
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +96,12 @@ extension TriviaViewController: UITableViewDataSource {
 }
 
 extension TriviaViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        guard case .triviaAdaptedList(let list) = viewState else { return }
-//        if indexPath.row == list.count - 1 {
-//            presenter.getTriviaList()
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard case .triviaAdaptedList(let list) = viewState else { return }
+        if indexPath.row == list.count - 1 {
+            presenter.getTriviaList()
+        }
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
@@ -119,5 +120,22 @@ extension TriviaViewController: UITableViewDelegate {
 extension TriviaViewController: TriviaTableViewCellDelegate {
     func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool {
         return presenter.isAnswer(answer, correctForTriviaWithId: triviaId)
+    }
+
+    func cellDidFinishWIthTrivia(withId triviaId: Int) {
+        view.isUserInteractionEnabled = false
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.timeBeforeFinishingWithTrivia) {
+
+            guard case .triviaAdaptedList(var list) = self.viewState else { return }
+            guard let index = list.index(where: { $0.id == triviaId }) else { return }
+
+            list.remove(at: index)
+            self.viewState = .triviaAdaptedList(list)
+            self.presenter.finishWIthTrivia(withId: triviaId)
+            
+            self.tableView.reloadData()
+            self.view.isUserInteractionEnabled = true
+        }
     }
 }
