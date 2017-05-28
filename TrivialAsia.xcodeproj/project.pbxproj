@@ -25,6 +25,8 @@
 		622460EB1ED8CE3F002BF65B /* TriviaViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622460EA1ED8CE3F002BF65B /* TriviaViewState.swift */; };
 		622460EE1ED9AF7D002BF65B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622460ED1ED9AF7D002BF65B /* StringExtension.swift */; };
 		622460F01ED9B43D002BF65B /* TriviaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622460EF1ED9B43D002BF65B /* TriviaTableViewCell.swift */; };
+		622461141EDA33C1002BF65B /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622461131EDA33C1002BF65B /* ArrayExtension.swift */; };
+		622461161EDB1BD8002BF65B /* TriviaColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622461151EDB1BD8002BF65B /* TriviaColor.swift */; };
 		623E74F11ED634E900292D18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623E74F01ED634E900292D18 /* AppDelegate.swift */; };
 		623E74F31ED634E900292D18 /* TriviaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623E74F21ED634E900292D18 /* TriviaViewController.swift */; };
 		623E74F61ED634E900292D18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 623E74F41ED634E900292D18 /* Main.storyboard */; };
@@ -55,6 +57,8 @@
 		622460EA1ED8CE3F002BF65B /* TriviaViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaViewState.swift; sourceTree = "<group>"; };
 		622460ED1ED9AF7D002BF65B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		622460EF1ED9B43D002BF65B /* TriviaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaTableViewCell.swift; sourceTree = "<group>"; };
+		622461131EDA33C1002BF65B /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		622461151EDB1BD8002BF65B /* TriviaColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaColor.swift; sourceTree = "<group>"; };
 		623E74ED1ED634E900292D18 /* TrivialAsia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrivialAsia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		623E74F01ED634E900292D18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		623E74F21ED634E900292D18 /* TriviaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				623E74F21ED634E900292D18 /* TriviaViewController.swift */,
 				622460EF1ED9B43D002BF65B /* TriviaTableViewCell.swift */,
 				623E74F41ED634E900292D18 /* Main.storyboard */,
+				622461151EDB1BD8002BF65B /* TriviaColor.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				622460ED1ED9AF7D002BF65B /* StringExtension.swift */,
+				622461131EDA33C1002BF65B /* ArrayExtension.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -342,6 +348,7 @@
 				6220F0DF1ED7038600F0F75E /* TriviaMappable.swift in Sources */,
 				62BB97F51ED6F28D00011C69 /* TriviaRepositoryService.swift in Sources */,
 				6220F0E51ED7041100F0F75E /* Routing.swift in Sources */,
+				622461141EDA33C1002BF65B /* ArrayExtension.swift in Sources */,
 				62BB97F11ED6F1DA00011C69 /* TriviaAPIService.swift in Sources */,
 				622460F01ED9B43D002BF65B /* TriviaTableViewCell.swift in Sources */,
 				6220F0F31ED75D8B00F0F75E /* TriviaViewAdapted.swift in Sources */,
@@ -355,6 +362,7 @@
 				6220F0D51ED6FC0A00F0F75E /* Trivia.swift in Sources */,
 				6220F0DD1ED7035200F0F75E /* ResponseCode.swift in Sources */,
 				622460E91ED8CE1C002BF65B /* TriviaView.swift in Sources */,
+				622461161EDB1BD8002BF65B /* TriviaColor.swift in Sources */,
 				6220F0D71ED6FD2000F0F75E /* TriviaListResponse.swift in Sources */,
 				6220F0F11ED72A2C00F0F75E /* TriviaPresenter.swift in Sources */,
 				6220F0F51ED7691800F0F75E /* TriviaViewNotification.swift in Sources */,

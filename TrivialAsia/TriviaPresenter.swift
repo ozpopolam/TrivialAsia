@@ -14,7 +14,7 @@ class TriviaPresenter {
     private let triviaRepositoryService = TriviaRepositoryService()
     private let triviaAPIService = TriviaAPIService()
     
-    private let amountOfTriviaToUpload = 10
+    private let amountOfTriviaToUpload = 1
     private var triviaIsBeingLoded = false
     private var token: TriviaToken?
     private var triviaList = [Trivia]()
@@ -59,6 +59,13 @@ class TriviaPresenter {
                 self.view?.addTriviaAdaptedList(triviaAdaptedList)
             }
         }
+    }
+
+    func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool {
+        guard let trivia = triviaList.first(where: { $0.id == triviaId }) else {
+            return false
+        }
+        return trivia.isAnswerCorrect(answer)
     }
     
     private func getToken(completionHandler: @escaping (TriviaToken?) -> Void) {

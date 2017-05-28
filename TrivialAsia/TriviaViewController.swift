@@ -23,7 +23,6 @@ final class TriviaViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
 
         tableView.separatorStyle = .none
-//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
         tableView.estimatedRowHeight = 100
     }
     
@@ -85,6 +84,7 @@ extension TriviaViewController: UITableViewDataSource {
     func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
         cell.configure(with: trivia, isFolded: true, isEven: indexPath.row % 2 == 0)
+        cell.delegate = self
         return cell
     }
 
@@ -95,12 +95,12 @@ extension TriviaViewController: UITableViewDataSource {
 }
 
 extension TriviaViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard case .triviaAdaptedList(let list) = viewState else { return }
-        if indexPath.row == list.count - 1 {
-            presenter.getTriviaList()
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard case .triviaAdaptedList(let list) = viewState else { return }
+//        if indexPath.row == list.count - 1 {
+//            presenter.getTriviaList()
+//        }
+//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
@@ -113,5 +113,11 @@ extension TriviaViewController: UITableViewDelegate {
             tableView.endUpdates()
             return
         }
+    }
+}
+
+extension TriviaViewController: TriviaTableViewCellDelegate {
+    func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool {
+        return presenter.isAnswer(answer, correctForTriviaWithId: triviaId)
     }
 }

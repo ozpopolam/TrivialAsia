@@ -40,15 +40,24 @@ class Trivia: Object, Mappable {
         category <- map["category"]
         type <- map["type"]
         difficulty <- map["difficulty"]
+
         question <- map["question"]
+        question = String(fromHtmlEncoded: question)
+
         correctAnswer <- map["correct_answer"]
+        correctAnswer = String(fromHtmlEncoded: correctAnswer)
         
         var incorrectAnswersMapped = [String]()
         incorrectAnswersMapped <- map["incorrect_answers"]
+        incorrectAnswersMapped = incorrectAnswersMapped.map({ String(fromHtmlEncoded: $0) })
         incorrectAnswersJoined = incorrectAnswersMapped.map({$0}).joined(separator: answersSeparator)
         
         id = (category + question + correctAnswer).hashValue
         uploadDate = Date()
+    }
+
+    func isAnswerCorrect(_ answer: String) -> Bool {
+        return answer == correctAnswer
     }
 }
 

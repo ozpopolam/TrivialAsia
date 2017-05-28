@@ -7,36 +7,22 @@
 //
 
 import UIKit
-enum TriviaColor {
 
-    static let whiteSmoke = UIColor(red: 236.0 / 255.0,
-                                    green: 236.0 / 255.0,
-                                    blue: 236.0 / 255.0,
-                                    alpha: 1.0)
-
-
-    static let pink = UIColor(red: 255.0 / 255.0,
-                              green: 45.0 / 255.0,
-                              blue: 85.0 / 255.0,
-                              alpha: 1.0)
-
-//    static let orange = UIColor(red: 255.0 / 255.0, green:  149.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
-
-    static let tealBlue = UIColor(red: 90.0 / 255.0,
-                                  green: 200.0 / 255.0,
-                                  blue: 250.0 / 255.0,
-                                  alpha: 1.0)
-
-    static let blue = UIColor(red: 0.0 / 255.0,
-                              green:  122.0 / 255.0,
-                              blue: 255.0 / 255.0,
-                              alpha: 1.0)
+protocol TriviaTableViewCellDelegate: class {
+//    func cellDidTouchAnswer(withId answerId: Int, forTriviaId triviaId: Int)
+    func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool
 }
 
 class TriviaTableViewCell: UITableViewCell {
 
-    static let identifier = "TriviaTableViewCellIdentifier"
+    static let identifier = "TriviaTableViewCell"
     static let cornerRadius: CGFloat = 4.0
+
+    weak var delegate: TriviaTableViewCellDelegate?
+
+    //private var triviaId = 0
+
+    private var trivia: TriviaViewAdapted?
 
     @IBOutlet private weak var difficultyLabel: UILabel!
     @IBOutlet private weak var questionLabel: UILabel!
@@ -68,26 +54,19 @@ class TriviaTableViewCell: UITableViewCell {
         difficultyLabel.textColor = .white
     }
 
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-
     func configure(with trivia: TriviaViewAdapted, isFolded: Bool, isEven: Bool) {
+        self.trivia = trivia
+
         backgroundColor = isEven ? UIColor.white : TriviaColor.whiteSmoke
         difficultyLabel.text = " " + trivia.difficulty + " " // imitate UIEdgeInsets xD
         questionLabel.text = trivia.question
         self.isFolded = isFolded
+
         add(answers: trivia.answers)
-
-
-        if let indexPath = (superview as? UITableView)?.indexPath(for: self) {
-            print(indexPath.row)
-        }
     }
 
     private func add(answers: [String]) {
+
         answerButtons.forEach {
             $0.removeFromSuperview()
         }
@@ -115,7 +94,10 @@ class TriviaTableViewCell: UITableViewCell {
     }
 
     @objc private func touch(_ button: UIButton) {
-        print(button.tag)
+        guard let trivia = trivia else { return }
+        guard let answerIsCorrect = delegate?.isAnswer(trivia.answers[button.tag], correctForTriviaWithId: trivia.id) else { return }
+
+        print(answerIsCorrect)
     }
 
 }

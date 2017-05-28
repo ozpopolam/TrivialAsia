@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="639"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TriviaTableViewCellIdentifier" rowHeight="200" id="A8x-eE-dfR" customClass="TriviaTableViewCell" customModule="TrivialAsia" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TriviaTableViewCell" rowHeight="200" id="A8x-eE-dfR" customClass="TriviaTableViewCell" customModule="TrivialAsia" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8x-eE-dfR" id="IPg-AJ-ZcY">
@@ -45,7 +45,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ge-Zj-a60">
-                                                                    <rect key="frame" x="68" y="8" width="299" height="113.5"/>
+                                                                    <rect key="frame" x="70" y="8" width="297" height="113.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                                                 <constraint firstItem="8Ge-Zj-a60" firstAttribute="top" secondItem="yVS-fN-uAS" secondAttribute="top" constant="8" id="TjM-kO-dJc"/>
                                                                 <constraint firstItem="BMU-tw-7WU" firstAttribute="leading" secondItem="yVS-fN-uAS" secondAttribute="leading" constant="8" id="TxQ-O2-Nan"/>
                                                                 <constraint firstAttribute="bottom" secondItem="8Ge-Zj-a60" secondAttribute="bottom" constant="8" id="ZJX-Ii-2Yi"/>
-                                                                <constraint firstItem="8Ge-Zj-a60" firstAttribute="leading" secondItem="yVS-fN-uAS" secondAttribute="leading" constant="68" id="gEK-Z2-dAT"/>
+                                                                <constraint firstItem="8Ge-Zj-a60" firstAttribute="leading" secondItem="yVS-fN-uAS" secondAttribute="leading" constant="70" id="gEK-Z2-dAT"/>
                                                                 <constraint firstAttribute="trailing" secondItem="8Ge-Zj-a60" secondAttribute="trailing" constant="8" id="kQ9-7W-3Wk"/>
                                                                 <constraint firstItem="8Ge-Zj-a60" firstAttribute="top" secondItem="BMU-tw-7WU" secondAttribute="top" constant="-4" id="o5R-8g-N0a"/>
                                                             </constraints>
