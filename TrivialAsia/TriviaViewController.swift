@@ -15,6 +15,9 @@ final class TriviaViewController: UIViewController {
     fileprivate let presenter = TriviaPresenter()
     fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded)
     fileprivate let timeBeforeFinishingWithTrivia: TimeInterval = 0.75
+    fileprivate let foldingTime: TimeInterval = 0.3
+
+    fileprivate var unfoldedTriviaIds = Set<Int>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +87,10 @@ extension TriviaViewController: UITableViewDataSource {
     
     func triviaCell(fromTrivia trivia: TriviaViewAdapted, forRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TriviaTableViewCell.identifier, for: indexPath) as! TriviaTableViewCell
-        cell.configure(with: trivia, isFolded: true, isEven: indexPath.row % 2 == 0)
-        cell.delegate = self
+
+        let isFolded = !unfoldedTriviaIds.contains(trivia.id)
+        cell.configure(with: trivia, delegate: self, isFolded: isFolded, isEven: indexPath.row % 2 == 0)
+
         return cell
     }
 
@@ -104,11 +109,20 @@ extension TriviaViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case .triviaAdaptedList(let list) = viewState else { return }
+        
         if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
             tableView.beginUpdates()
 
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: foldingTime) {
                 cell.isFolded = !cell.isFolded
+
+                let triviaId = list[indexPath.row].id
+                if cell.isFolded {
+                    self.unfoldedTriviaIds.remove(triviaId)
+                } else {
+                    self.unfoldedTriviaIds.insert(triviaId)
+                }
             }
 
             tableView.endUpdates()
@@ -128,10 +142,13 @@ extension TriviaViewController: TriviaTableViewCellDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + self.timeBeforeFinishingWithTrivia) {
 
             guard case .triviaAdaptedList(var list) = self.viewState else { return }
-            guard let index = list.index(where: { $0.id == triviaId }) else { return }
+            guard let row = list.index(where: { $0.id == triviaId }) else { return }
 
-            list.remove(at: index)
+            list.remove(at: row)
             self.viewState = .triviaAdaptedList(list)
+
+            self.unfoldedTriviaIds.remove(triviaId)
+
             self.presenter.finishWIthTrivia(withId: triviaId)
             
             self.tableView.reloadData()

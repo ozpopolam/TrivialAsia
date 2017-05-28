@@ -13,14 +13,13 @@ protocol TriviaTableViewCellDelegate: class {
     func cellDidFinishWIthTrivia(withId triviaId: Int)
 }
 
-class TriviaTableViewCell: UITableViewCell {
+final class TriviaTableViewCell: UITableViewCell {
 
     static let identifier = "TriviaTableViewCell"
     static let cornerRadius: CGFloat = 4.0
 
-    weak var delegate: TriviaTableViewCellDelegate?
-
     private var trivia: TriviaViewAdapted?
+    private weak var delegate: TriviaTableViewCellDelegate?
 
     @IBOutlet private weak var difficultyLabel: UILabel!
     @IBOutlet private weak var questionLabel: UILabel!
@@ -52,8 +51,10 @@ class TriviaTableViewCell: UITableViewCell {
         difficultyLabel.textColor = .white
     }
 
-    func configure(with trivia: TriviaViewAdapted, isFolded: Bool, isEven: Bool) {
+    func configure(with trivia: TriviaViewAdapted, delegate: TriviaTableViewCellDelegate?, isFolded: Bool, isEven: Bool) {
+
         self.trivia = trivia
+        self.delegate = delegate
 
         backgroundColor = isEven ? UIColor.white : TriviaColor.whiteSmoke
         difficultyLabel.text = " " + trivia.difficulty + " " // imitate UIEdgeInsets xD
