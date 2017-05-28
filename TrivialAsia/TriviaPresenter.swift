@@ -14,7 +14,7 @@ class TriviaPresenter {
     private let triviaRepositoryService = TriviaRepositoryService()
     private let triviaAPIService = TriviaAPIService()
     
-    private let amountOfTriviaToUpload = 10
+    private let amountOfTriviaToUpload = 20
     private var triviaIsBeingLoded = false
     private var token: TriviaToken?
     private var triviaList = [Trivia]()
