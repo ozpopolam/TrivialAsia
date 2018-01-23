@@ -17,9 +17,9 @@ extension String {
             return
         }
 
-        let attributedOptions: [String : Any] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue
+        let attributedOptions: [NSAttributedString.DocumentReadingOptionKey : Any] = [
+            NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html,
+            NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue
         ]
 
         do {

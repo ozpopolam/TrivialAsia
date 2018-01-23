@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 class TriviaToken: Object {
-    dynamic var id = 0
-    dynamic var generationDate = Date()
-    dynamic var value = ""
+    @objc dynamic var id = 0
+    @objc dynamic var generationDate = Date()
+    @objc dynamic var value = ""
     
     override static func primaryKey() -> String? {
         return "id"
