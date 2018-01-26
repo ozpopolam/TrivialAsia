@@ -8,6 +8,26 @@
 
 import UIKit
 
+protocol Identifiable {
+    var identifier: String { get }
+}
+
+extension Identifiable {
+    var identifier: String {
+        return String(describing: self)
+    }
+}
+
+protocol Routable {
+    var viewController: UIViewController { get }
+}
+
+extension UIViewController: Routable {
+    var viewController: UIViewController {
+        return self
+    }
+}
+
 protocol Router {
     func route(viewController: UIViewController, withOption option: RoutingOption)
 }
@@ -30,57 +50,23 @@ extension UIViewController: Route {
 
 final class ApplicationRouter: Router {
     private var rootViewController: UIViewController?
-    var topViewController: UIViewController?
+    private var topViewController: UIViewController?
 
     func route(viewController: UIViewController, withOption option: RoutingOption) {
         switch option {
         case .present:
-            break
+            guard let topViewController = topViewController else { return }
+            topViewController.present(viewController, animated: true, completion: nil)
 
         case .push:
-            break
+            guard let topViewController = topViewController as? UINavigationController else { return }
+            topViewController.pushViewController(viewController, animated: true)
 
         case .setRoot(let window):
-            self.rootViewController = viewController
-            self.topViewController = viewController
+            rootViewController = viewController
+            topViewController = viewController
+
             window?.rootViewController = viewController
         }
-
-        // if setRoot
-
-    }
-
-    init() {
-        rootViewController = UIViewController()
-        rootViewController?.view.backgroundColor = .red
-
-        topViewController = rootViewController
-    }
-
-    func setRootViewController(to window: UIWindow?) {
-        window?.rootViewController = rootViewController
-    }
-
-    func push(viewController: UIViewController) {
-        guard let navigationController = topViewController as? UINavigationController else { return }
-        navigationController.pushViewController(viewController, animated: true)
-    }
-
-    func present(viewController: UIViewController) {
-        guard let topViewController = topViewController else { return }
-        topViewController.present(viewController, animated: true, completion: nil)
     }
 }
-
-
-//window.rootViewController = myViewController;
-//In rare cases you might want to create your app’s window programmatically. You would use code something like this to programmatically create a window, install the root view controller, and make the window visible:
-//
-//- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    myViewController = [[MyViewController alloc] init];
-//    window.rootViewController = myViewController;
-//    [window makeKeyAndVisible];
-//    return YES;
-//}
-

@@ -13,19 +13,12 @@ protocol Coordinator: class {
     func start(withRoutingOption routingOption: RoutingOption)
 }
 
-//protocol ApplicationCoordinator: class {
-//    func start(with )
-//}
-
 protocol CoordinatorProvider {
     func provideTriviaListCoordinator(withRouter router: Router, andRouteProvider routeProvider: RouteProvider) -> Coordinator
 }
 
 protocol RouteProvider {
-    func provideTriviaListRoute() -> UIViewController
-}
-
-protocol TriviaListRoute: Route {
+    func provideTriviaListRoutable() -> Routable
 }
 
 // implementations
@@ -37,10 +30,11 @@ final class ApplicationCoordinatorProvider: CoordinatorProvider {
     }
 }
 
-final class DefaultRouteProvider: RouteProvider {
-    func provideTriviaListRoute() -> UIViewController {
-        let triviaListRoute = UIViewController()
-        triviaListRoute.view.backgroundColor = .yellow
+final class ApplicationRouteProvider: RouteProvider {
+    func provideTriviaListRoutable() -> Routable {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let triviaListRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaViewController") as! TriviaViewController
         return triviaListRoute
     }
 }
@@ -55,11 +49,8 @@ final class TriviaListCoordinator: Coordinator {
     }
 
     func start(withRoutingOption routingOption: RoutingOption) {
-        let triviaListRoute = routeProvider.provideTriviaListRoute()
-        router.route(viewController: triviaListRoute, withOption: routingOption)
-    }
-
-    func start() {
+        let triviaListRoute = routeProvider.provideTriviaListRoutable()
+        router.route(viewController: triviaListRoute.viewController, withOption: routingOption)
     }
 }
 
@@ -75,7 +66,7 @@ class ApplicationCoordinator: Coordinator {
         self.coordinatorProvider = coordinatorProvider
         self.router = router
 
-        routeProvider = DefaultRouteProvider()
+        routeProvider = ApplicationRouteProvider()
     }
 
     func start(withRoutingOption routingOption: RoutingOption) {
