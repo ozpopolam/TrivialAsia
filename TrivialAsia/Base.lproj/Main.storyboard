@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="476" y="96.7016491754123"/>
         </scene>
-        <!--View Controller-->
+        <!--Trivia View Controller-->
         <scene sceneID="5fp-UK-QNE">
             <objects>
-                <viewController storyboardIdentifier="TriviaViewController" id="mW1-Pq-wW0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TriviaViewController" id="mW1-Pq-wW0" customClass="TriviaViewController" customModule="TrivialAsia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qM1-cp-aIj"/>
                         <viewControllerLayoutGuide type="bottom" id="VyA-4I-Mx8"/>

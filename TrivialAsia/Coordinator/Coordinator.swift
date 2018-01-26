@@ -22,7 +22,7 @@ protocol CoordinatorProvider {
 protocol RouteProvider {
     func provideTriviaNavigationRoutable() -> Routable
     func provideTriviaListRoutable() -> TriviaListRoutable
-    func provideTriviaRoutable() -> Routable
+    func provideTriviaRoutable() -> TriviaRoutable
 }
 
 // implementations
@@ -39,7 +39,7 @@ protocol TriviaListRoutable: Routable {
 }
 
 protocol TriviaRoutable: Routable {
-    var triviaSelectionHandler: ( (_ triviaId: Int) -> () )? { get set }
+    var triviaFinishingHandler: ( (_ triviaId: Int?) -> () )? { get set }
 }
 
 final class ApplicationRouteProvider: RouteProvider {
@@ -55,9 +55,9 @@ final class ApplicationRouteProvider: RouteProvider {
         return triviaListRoute
     }
 
-    func provideTriviaRoutable() -> Routable {
+    func provideTriviaRoutable() -> TriviaRoutable {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let triviaRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaViewController")
+        let triviaRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaViewController") as! TriviaViewController
         return triviaRoute
     }
 }
@@ -87,7 +87,11 @@ final class TriviaListCoordinator: Coordinator {
     }
 
     private func coordinateToTrivia() {
-        let triviaRoute = routeProvider.provideTriviaRoutable()
+        var triviaRoute = routeProvider.provideTriviaRoutable()
+        triviaRoute.triviaFinishingHandler = { [weak self] (triviaId) in
+            guard let strongSelf = self else { return }
+            print(triviaId)
+        }
         router.route(viewController: triviaRoute.viewController, withOption: .push)
     }
 }
