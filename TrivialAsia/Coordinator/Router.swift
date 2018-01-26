@@ -36,6 +36,8 @@ enum RoutingOption {
     case setRoot(toWindow: UIWindow?)
     case push
     case present
+    case set(viewControllers: [UIViewController])
+
 }
 
 protocol Route {
@@ -58,6 +60,8 @@ final class ApplicationRouter: Router {
             guard let topViewController = topViewController else { return }
             topViewController.present(viewController, animated: true, completion: nil)
 
+            self.topViewController = viewController
+
         case .push:
             guard let topViewController = topViewController as? UINavigationController else { return }
             topViewController.pushViewController(viewController, animated: true)
@@ -67,6 +71,11 @@ final class ApplicationRouter: Router {
             topViewController = viewController
 
             window?.rootViewController = viewController
+
+        case .set(let viewControllers):
+            guard let topViewController = topViewController as? UINavigationController else { return }
+            topViewController.setViewControllers(viewControllers, animated: false)
+
         }
     }
 }

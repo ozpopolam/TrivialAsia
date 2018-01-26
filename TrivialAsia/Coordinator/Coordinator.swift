@@ -17,8 +17,12 @@ protocol CoordinatorProvider {
     func provideTriviaListCoordinator(withRouter router: Router, andRouteProvider routeProvider: RouteProvider) -> Coordinator
 }
 
+
+
 protocol RouteProvider {
-    func provideTriviaListRoutable() -> Routable
+    func provideTriviaNavigationRoutable() -> Routable
+    func provideTriviaListRoutable() -> TriviaListRoutable
+    func provideTriviaRoutable() -> Routable
 }
 
 // implementations
@@ -30,14 +34,35 @@ final class ApplicationCoordinatorProvider: CoordinatorProvider {
     }
 }
 
-final class ApplicationRouteProvider: RouteProvider {
-    func provideTriviaListRoutable() -> Routable {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+protocol TriviaListRoutable: Routable {
+    var triviaSelectionHandler: ( (_ triviaId: Int) -> () )? { get set }
+}
 
-        let triviaListRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaViewController") as! TriviaViewController
+protocol TriviaRoutable: Routable {
+    var triviaSelectionHandler: ( (_ triviaId: Int) -> () )? { get set }
+}
+
+final class ApplicationRouteProvider: RouteProvider {
+    func provideTriviaNavigationRoutable() -> Routable {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let triviaNavigationRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaNavigationController")
+        return triviaNavigationRoute
+    }
+
+    func provideTriviaListRoutable() -> TriviaListRoutable {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let triviaListRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaListViewController") as! TriviaListViewController
         return triviaListRoute
     }
+
+    func provideTriviaRoutable() -> Routable {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let triviaRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaViewController")
+        return triviaRoute
+    }
 }
+
+
 
 final class TriviaListCoordinator: Coordinator {
     private let router: Router
@@ -49,8 +74,21 @@ final class TriviaListCoordinator: Coordinator {
     }
 
     func start(withRoutingOption routingOption: RoutingOption) {
-        let triviaListRoute = routeProvider.provideTriviaListRoutable()
-        router.route(viewController: triviaListRoute.viewController, withOption: routingOption)
+        let triviaNavigationRoute = routeProvider.provideTriviaNavigationRoutable()
+        router.route(viewController: triviaNavigationRoute.viewController, withOption: routingOption)
+
+        var triviaListRoute = routeProvider.provideTriviaListRoutable()
+        triviaListRoute.triviaSelectionHandler = { [weak self] (triviaId) in
+            guard let strongSelf = self else { return }
+            strongSelf.coordinateToTrivia()
+        }
+
+        router.route(viewController: triviaListRoute.viewController, withOption: .set(viewControllers: [triviaListRoute.viewController]))
+    }
+
+    private func coordinateToTrivia() {
+        let triviaRoute = routeProvider.provideTriviaRoutable()
+        router.route(viewController: triviaRoute.viewController, withOption: .push)
     }
 }
 
@@ -61,6 +99,8 @@ class ApplicationCoordinator: Coordinator {
     private let router: Router
 
     private let routeProvider: RouteProvider
+
+    var coordinators = [Coordinator]()
 
     init(coordinatorProvider: CoordinatorProvider, router: Router) {
         self.coordinatorProvider = coordinatorProvider
@@ -73,5 +113,6 @@ class ApplicationCoordinator: Coordinator {
         let triviaListCoordinator = coordinatorProvider.provideTriviaListCoordinator(withRouter: router,
                                                                                      andRouteProvider: routeProvider)
         triviaListCoordinator.start(withRoutingOption: routingOption)
+        coordinators.append(triviaListCoordinator)
     }
 }

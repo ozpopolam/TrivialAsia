@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MXw-XW-jqs">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Trivia View Controller-->
+        <!--Trivia List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="TriviaViewController" id="BYZ-38-t0r" customClass="TriviaViewController" customModule="TrivialAsia" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TriviaListViewController" id="BYZ-38-t0r" customClass="TriviaListViewController" customModule="TrivialAsia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -128,13 +128,47 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ENS-hp-CC6" secondAttribute="bottom" id="HqV-uP-TdU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="eZD-Pt-Nii"/>
                     <connections>
                         <outlet property="tableView" destination="ENS-hp-CC6" id="lKB-WH-Kuq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="96.7016491754123"/>
+            <point key="canvasLocation" x="476" y="96.7016491754123"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5fp-UK-QNE">
+            <objects>
+                <viewController storyboardIdentifier="TriviaViewController" id="mW1-Pq-wW0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qM1-cp-aIj"/>
+                        <viewControllerLayoutGuide type="bottom" id="VyA-4I-Mx8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dgz-2F-Xd2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Ja-2T-KL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1226" y="97"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1ik-ds-pBa">
+            <objects>
+                <navigationController storyboardIdentifier="TriviaNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MXw-XW-jqs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z0f-tf-WA8">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rx1-oa-7IM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-473" y="97"/>
         </scene>
     </scenes>
 </document>

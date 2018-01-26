@@ -9,7 +9,9 @@
 import UIKit
 import Alamofire
 
-final class TriviaViewController: UIViewController {
+final class TriviaListViewController: UIViewController, TriviaListRoutable {
+    var triviaSelectionHandler: ( (_ triviaId: Int) -> () )?
+
     @IBOutlet weak var tableView: UITableView!
     
     fileprivate let presenter = TriviaPresenter()
@@ -44,7 +46,7 @@ final class TriviaViewController: UIViewController {
 
 }
 
-extension TriviaViewController: UITableViewDataSource {
+extension TriviaListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewState {
         case .notification:
@@ -81,7 +83,7 @@ extension TriviaViewController: UITableViewDataSource {
     }
 }
 
-extension TriviaViewController: UITableViewDelegate {
+extension TriviaListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard case .triviaAdaptedList(let list) = viewState else { return }
         if indexPath.row == list.count - 1 {
@@ -91,8 +93,11 @@ extension TriviaViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case .triviaAdaptedList(let list) = viewState else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell else { return }
 
-        if let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell {
+        let triviaId = list[indexPath.row].id
+        triviaSelectionHandler?(triviaId)
+
             tableView.beginUpdates()
 
             UIView.animate(withDuration: foldingTime) {
@@ -108,11 +113,11 @@ extension TriviaViewController: UITableViewDelegate {
 
             tableView.endUpdates()
             return
-        }
+
     }
 }
 
-extension TriviaViewController: TriviaTableViewCellDelegate {
+extension TriviaListViewController: TriviaTableViewCellDelegate {
     func isAnswer(_ answer: String, correctForTriviaWithId triviaId: Int) -> Bool {
         return presenter.isAnswer(answer, correctForTriviaWithId: triviaId)
     }
@@ -138,7 +143,7 @@ extension TriviaViewController: TriviaTableViewCellDelegate {
     }
 }
 
-extension TriviaViewController: TriviaView {
+extension TriviaListViewController: TriviaView {
     func addTriviaAdaptedList(_ triviaAdaptedList: [TriviaViewAdapted]) {
         if case .triviaAdaptedList(var list) = viewState {
             list.append(contentsOf: triviaAdaptedList)
