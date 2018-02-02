@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 
 final class TriviaListViewController: UIViewController {
-    var triviaSelectionHandler: ( (_ triviaId: Int) -> () )?
 
     @IBOutlet weak var tableView: UITableView!
+
+    weak var coordinatorInput: TriviaListCoordinatorInput?
     
     fileprivate let presenter = TriviaPresenter()
     fileprivate var viewState = TriviaViewState.notification(TriviaViewNotification.isBeingLoaded)
@@ -96,23 +97,25 @@ extension TriviaListViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? TriviaTableViewCell else { return }
 
         let triviaId = list[indexPath.row].id
-        triviaSelectionHandler?(triviaId)
+        coordinatorInput?.triviaListDidSelect(triviaWithId: triviaId)
 
-            tableView.beginUpdates()
+        tableView.beginUpdates()
 
-            UIView.animate(withDuration: foldingTime) {
-                cell.isFolded = !cell.isFolded
+        
+        UIView.animate(withDuration: foldingTime) {
+            cell.isFolded = !cell.isFolded
+            cell.layoutIfNeeded()
 
-                let triviaId = list[indexPath.row].id
-                if cell.isFolded {
-                    self.unfoldedTriviaIds.remove(triviaId)
-                } else {
-                    self.unfoldedTriviaIds.insert(triviaId)
-                }
+            let triviaId = list[indexPath.row].id
+            if cell.isFolded {
+                self.unfoldedTriviaIds.remove(triviaId)
+            } else {
+                self.unfoldedTriviaIds.insert(triviaId)
             }
+        }
 
-            tableView.endUpdates()
-            return
+        tableView.endUpdates()
+        return
 
     }
 }

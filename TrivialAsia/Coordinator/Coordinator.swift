@@ -96,14 +96,17 @@ final class TriviaListRouteAssembler {
         return listNavigationRoute
     }
 
-    func assembleList() -> Routable {
+    func assembleList(withCoordinatorInput coordinatorInput: TriviaListCoordinatorInput) -> Routable {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let listRoute = mainStoryboard.instantiateViewController(withIdentifier: "TriviaListViewController") as! TriviaListViewController
+
+        listRoute.coordinatorInput = coordinatorInput
+
         return listRoute
     }
 }
 
-protocol TriviaListCoordinatorInput {
+protocol TriviaListCoordinatorInput: class {
     func triviaListDidSelect(triviaWithId triviaId: Int)
 }
 
@@ -123,13 +126,15 @@ final class TriviaListCoordinator: Coordinator {
     }
 
     private func coordinateToList() {
-        let listRoute = assembler.assembleList()
+        let listRoute = assembler.assembleList(withCoordinatorInput: self)
 
         guard let transition = SetTransition(with: router) else { return }
         router.route(to: listRoute.viewController, with: transition)
     }
 
     fileprivate func coordinateToTrivia(withId triviaId: Int) {
+        print(triviaId)
+        print()
     }
 }
 
@@ -142,12 +147,15 @@ extension TriviaListCoordinator: TriviaListCoordinatorInput {
 class AppCoordinator {
     private weak var appWindow: UIWindow?
 
+    var coordinators = [Coordinator]()
+
     init(with appWindow: UIWindow?) {
         self.appWindow = appWindow
     }
 
     func start() {
         let triviaListCoordinator = TriviaListCoordinator()
+        coordinators.append(triviaListCoordinator)
         appWindow?.rootViewController = triviaListCoordinator.start()
     }
 }
