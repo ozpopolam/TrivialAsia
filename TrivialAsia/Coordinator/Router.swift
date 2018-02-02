@@ -28,55 +28,34 @@ extension UIViewController: Routable {
     }
 }
 
-protocol Router {
-    func route(viewController: UIViewController, withOption option: RoutingOption)
-}
+//final class ApplicationRouter: Router {
+//    private var rootViewController: UIViewController?
+//    private var topViewController: UIViewController?
+//
+//    func route(viewController: UIViewController, withOption option: RoutingOption) {
+//        switch option {
+//        case .present:
+//            guard let topViewController = topViewController else { return }
+//            topViewController.present(viewController, animated: true, completion: nil)
+//
+//            self.topViewController = viewController
+//
+//
+//        case .push:
+//            guard let topViewController = topViewController as? UINavigationController else { return }
+//            topViewController.pushViewController(viewController, animated: true)
+//
+//        case .setRoot(let window):
+//            rootViewController = viewController
+//            topViewController = viewController
+//
+//            window?.rootViewController = viewController
+//
+//        case .set(let viewControllers):
+//            guard let topViewController = topViewController as? UINavigationController else { return }
+//            topViewController.setViewControllers(viewControllers, animated: false)
+//
+//        }
+//    }
+//}
 
-enum RoutingOption {
-    case setRoot(toWindow: UIWindow?)
-    case push
-    case present
-    case set(viewControllers: [UIViewController])
-
-}
-
-protocol Route {
-    var controller: UIViewController? { get }
-}
-
-extension UIViewController: Route {
-    var controller: UIViewController? {
-        return self
-    }
-}
-
-final class ApplicationRouter: Router {
-    private var rootViewController: UIViewController?
-    private var topViewController: UIViewController?
-
-    func route(viewController: UIViewController, withOption option: RoutingOption) {
-        switch option {
-        case .present:
-            guard let topViewController = topViewController else { return }
-            topViewController.present(viewController, animated: true, completion: nil)
-
-            self.topViewController = viewController
-
-
-        case .push:
-            guard let topViewController = topViewController as? UINavigationController else { return }
-            topViewController.pushViewController(viewController, animated: true)
-
-        case .setRoot(let window):
-            rootViewController = viewController
-            topViewController = viewController
-
-            window?.rootViewController = viewController
-
-        case .set(let viewControllers):
-            guard let topViewController = topViewController as? UINavigationController else { return }
-            topViewController.setViewControllers(viewControllers, animated: false)
-
-        }
-    }
-}
