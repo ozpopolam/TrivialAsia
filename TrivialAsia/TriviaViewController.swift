@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TriviaViewController: UIViewController, TriviaRoutable {
+class TriviaViewController: UIViewController {
     var triviaFinishingHandler: ( (_ triviaId: Int?) -> () )?
 
     override func viewDidLoad() {

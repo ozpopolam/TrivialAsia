@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-final class TriviaListViewController: UIViewController, TriviaListRoutable {
+final class TriviaListViewController: UIViewController {
     var triviaSelectionHandler: ( (_ triviaId: Int) -> () )?
 
     @IBOutlet weak var tableView: UITableView!

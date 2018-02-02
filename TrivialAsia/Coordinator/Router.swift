@@ -62,6 +62,7 @@ final class ApplicationRouter: Router {
 
             self.topViewController = viewController
 
+
         case .push:
             guard let topViewController = topViewController as? UINavigationController else { return }
             topViewController.pushViewController(viewController, animated: true)

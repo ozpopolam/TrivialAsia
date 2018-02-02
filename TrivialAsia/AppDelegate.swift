@@ -12,12 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    private lazy var coordinator = ApplicationCoordinator(coordinatorProvider: ApplicationCoordinatorProvider(),
-                                                          router: ApplicationRouter())
+    private lazy var appCoordinator: AppCoordinator = {
+        return AppCoordinator(with: window)
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        coordinator.start(withRoutingOption: .setRoot(toWindow: window))
+        appCoordinator.start()
         return true
     }
 }
